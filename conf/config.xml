@@ -1,0 +1,26 @@
+<cachetable>
+    <item name="appcache">
+        <db host="127.0.0.1" port="3306" username="root" password="" database="testdb" />
+        <kv type="memcached">
+            <server id="1" ip="127.0.0.1"  port="11211"  />	
+            <server id="2" ip="127.0.0.1"  port="11212"  />
+        </kv>
+        <!--
+	sqlinterval: 一次全量数据同步后休眠时间,单位:秒
+	-->
+        <sql batchnum="5000" wherecondition="AND" wheretable="test" whereid="test.id">
+<![CDATA[
+SELECT
+*
+FROM 
+TABLE
+ ]]>
+        </sql>
+        <!--
+             sleep: 一次完整更新后休眠时间，单位：秒
+             interval: 批量同步时间隔时间,单位：微秒
+	 -->
+        <cache keyfield="id1|id2"  keyprefix="cache" expires="100" sleep="120" interval="100000" />
+        <log logpath="../log/" logname="run-memcached.log" logfilesize="10000000" lognum="5" />
+    </item>
+</cachetable>
